@@ -1,2 +1,2 @@
 # wayofthinking.github.io
-The website of Way of Thinking
+The one-page website of Way of Thinking.
