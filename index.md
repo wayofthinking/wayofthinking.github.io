@@ -1,6 +1,9 @@
 ---
 layout: home
 ---
-*Way of Thinking* is the legal company for the work of [Els Ceulemans](http://psycholoog.be/els.ceulemans) and [Thierry de Pauw](http://linkedin.com/in/tdpauw).
+*Way of Thinking* is the legal company behind the trademarks:
+
+- [Mother on the Pea](http://motheronthepea.be)
+- [ThinkingLabs](http://thinkinglabs.io)
 
 The company is located in Ghent, Belgium.
