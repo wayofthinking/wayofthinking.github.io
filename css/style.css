@@ -7,6 +7,10 @@ body {
   width: 100%
 }
 
+.container {
+  width: 100%
+}
+
 p {
   margin: 0;
 }
@@ -37,7 +41,6 @@ p {
   color: #514182;
 }
 
-footer {
 .thinkinglabs .mobile {
   color: #ffffff;
   text-decoration: none;
@@ -48,13 +51,14 @@ footer {
   text-decoration: none;
 }
 
+.footer {
   background-color: #000000;
   color: #ffffff;
 }
 
 .thinkinglabs,
 .motherofpea,
-footer {
+.footer {
   padding-top: 50px;
   padding-bottom: 50px;
 }
