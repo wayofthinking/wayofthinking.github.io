@@ -38,6 +38,16 @@ p {
 }
 
 footer {
+.thinkinglabs .mobile {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.motherofpea .mobile {
+  color: #000000;
+  text-decoration: none;
+}
+
   background-color: #000000;
   color: #ffffff;
 }
