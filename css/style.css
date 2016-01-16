@@ -1,0 +1,74 @@
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro);
+
+
+body {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-size: 21px;
+  width: 100%;
+  background-color: #000000;
+}
+
+.container {
+  width: 100%
+}
+
+p {
+  margin: 0;
+}
+
+.img-responsive {
+  display: inline;
+}
+
+.center {
+  text-align: center;
+}
+
+.thinkinglabs {
+  background: url(../images/tl-bgd.png) #009aa8 top center no-repeat;
+  color: #ffffff;
+}
+
+.motherofpea {
+  background: url(../images/mop-bgd.png) #ded8f0 top center no-repeat;
+  color: #000000;
+}
+
+.thinkinglabs a {
+  color: #f8ba54;
+}
+
+.motherofpea a {
+  color: #514182;
+}
+
+.thinkinglabs .mobile {
+  color: #ffffff;
+  text-decoration: none;
+}
+
+.motherofpea .mobile {
+  color: #000000;
+  text-decoration: none;
+}
+
+header .row {
+  background-color: #ffffff;
+}
+
+.footer {
+  background-color: #000000;
+  color: #ffffff;
+}
+
+.thinkinglabs,
+.motherofpea,
+.footer {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.copyright {
+  margin-top: 30px;
+  font-size: 13px;
+}
