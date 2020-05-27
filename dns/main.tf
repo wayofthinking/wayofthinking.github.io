@@ -133,6 +133,13 @@ resource "ovh_domain_zone_redirection" "be_wayofthinking" {
   target    = "www.wayofthinking.be"
 }
 
+resource "ovh_domain_zone_record" "be_gsuite_site_verification" {
+  zone      = local.be_zone
+  fieldtype = "TXT"
+  ttl       = 60
+  target    = "\"google-site-verification=Z85qsHhGDqO317DaUZRgMeCGH44FlJz333T_wgRjiPE\""
+}
+
 resource "ovh_domain_zone_record" "be_wayofthinking_records" {
   count     = length(local.be_records)
   zone      = local.be_zone
