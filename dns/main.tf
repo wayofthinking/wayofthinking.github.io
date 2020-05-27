@@ -46,6 +46,20 @@ locals {
     { subdomain = "smtp", fieldtype = "CNAME", target = "ssl0.ovh.net." },
     { subdomain = "www", fieldtype = "TXT", target = "\"3|welcome\"" },
   ]
+
+  eu_records = [
+    { subdomain = "_autodiscover._tcp", fieldtype = "SRV", target = "0 0 443 mailconfig.ovh.net." },
+    { subdomain = "_imaps._tcp", fieldtype = "SRV", target = "0 0 993 ssl0.ovh.net." },
+    { subdomain = "_submission._tcp", fieldtype = "SRV", target = "0 0 465 ssl0.ovh.net." },
+    { subdomain = "autoconfig", fieldtype = "CNAME", target = "mailconfig.ovh.net." },
+    { subdomain = "autodiscover", fieldtype = "CNAME", target = "mailconfig.ovh.net." },
+    { subdomain = "ftp", fieldtype = "CNAME", target = "wayofthinking.eu." },
+    { subdomain = "imap", fieldtype = "CNAME", target = "ssl0.ovh.net." },
+    { subdomain = "mail", fieldtype = "CNAME", target = "ssl0.ovh.net." },
+    { subdomain = "pop3", fieldtype = "CNAME", target = "ssl0.ovh.net." },
+    { subdomain = "smtp", fieldtype = "CNAME", target = "ssl0.ovh.net." },
+    { subdomain = "www", fieldtype = "TXT", target = "\"3|welcome\"" },
+  ]
 }
 
 resource "ovh_domain_zone_record" "net_name_server" {
@@ -126,4 +140,44 @@ resource "ovh_domain_zone_record" "be_wayofthinking_records" {
   fieldtype = local.be_records[count.index].fieldtype
   ttl       = 0
   target    = local.be_records[count.index].target
+}
+
+resource "ovh_domain_zone_record" "eu_name_server" {
+  count     = length(local.ns_records)
+  zone      = local.eu_zone
+  fieldtype = "NS"
+  ttl       = 0
+  target    = local.ns_records[count.index]
+}
+
+resource "ovh_domain_zone_record" "eu_wayofthinking" {
+  count     = length(var.website_ip)
+  zone      = local.eu_zone
+  fieldtype = "A"
+  ttl       = 0
+  target    = var.website_ip[count.index]
+}
+
+resource "ovh_domain_zone_record" "eu_wayofthinking_www" {
+  zone      = local.eu_zone
+  subdomain = "www"
+  fieldtype = "CNAME"
+  ttl       = 0
+  target    = "${local.eu_zone}."
+}
+
+resource "ovh_domain_zone_redirection" "eu_wayofthinking" {
+  zone      = local.eu_zone
+  subdomain = ""
+  type      = "visible"
+  target    = "www.wayofthinking.eu"
+}
+
+resource "ovh_domain_zone_record" "eu_wayofthinking_records" {
+  count     = length(local.be_records)
+  zone      = local.eu_zone
+  subdomain = local.eu_records[count.index].subdomain
+  fieldtype = local.eu_records[count.index].fieldtype
+  ttl       = 0
+  target    = local.eu_records[count.index].target
 }
