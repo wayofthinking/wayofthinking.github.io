@@ -234,7 +234,7 @@ resource "ovh_domain_zone_record" "eu_gsuite_mail" {
 }
 
 resource "ovh_domain_zone_record" "eu_wayofthinking_records" {
-  count     = length(local.be_records)
+  count     = length(local.eu_records)
   zone      = local.eu_zone
   subdomain = local.eu_records[count.index].subdomain
   fieldtype = local.eu_records[count.index].fieldtype
