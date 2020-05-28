@@ -99,7 +99,7 @@ resource "ovh_domain_zone_record" "net_wayofthinking_www" {
   subdomain = "www"
   fieldtype = "CNAME"
   ttl       = 0
-  target    = "${local.net_zone}."
+  target    = "wayofthinking.github.io."
 }
 
 resource "ovh_domain_zone_record" "net_wayofthinking_records" {
