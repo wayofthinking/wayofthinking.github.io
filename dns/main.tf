@@ -14,6 +14,8 @@ locals {
   be_zone = "wayofthinking.be"
   eu_zone = "wayofthinking.eu"
 
+  ip = "213.186.33.5"
+
   ns_records = [
     "dns109.ovh.net.",
     "ns109.ovh.net."
@@ -140,11 +142,10 @@ resource "ovh_domain_zone_record" "be_name_server" {
 }
 
 resource "ovh_domain_zone_record" "be_wayofthinking" {
-  count     = length(var.website_ip)
   zone      = local.be_zone
   fieldtype = "A"
   ttl       = 0
-  target    = var.website_ip[count.index]
+  target    = local.ip
 }
 
 resource "ovh_domain_zone_record" "be_wayofthinking_www" {
@@ -195,11 +196,10 @@ resource "ovh_domain_zone_record" "eu_name_server" {
 }
 
 resource "ovh_domain_zone_record" "eu_wayofthinking" {
-  count     = length(var.website_ip)
   zone      = local.eu_zone
   fieldtype = "A"
   ttl       = 0
-  target    = var.website_ip[count.index]
+  target    = local.ip
 }
 
 resource "ovh_domain_zone_record" "eu_wayofthinking_www" {
