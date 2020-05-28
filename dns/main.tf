@@ -224,6 +224,14 @@ resource "ovh_domain_zone_record" "eu_gsuite_site_verification" {
   target    = "\"google-site-verification=jncyCZipyOxhCFlrpp1UgSVFeqWAXBCp7Dowv8vnZ_w\""
 }
 
+resource "ovh_domain_zone_record" "eu_gsuite_mail" {
+  count     = length(local.be_gsuite_mx_records)
+  zone      = local.eu_zone
+  fieldtype = "MX"
+  ttl       = 0
+  target    = local.be_gsuite_mx_records[count.index]
+}
+
 resource "ovh_domain_zone_record" "eu_wayofthinking_records" {
   count     = length(local.be_records)
   zone      = local.eu_zone
