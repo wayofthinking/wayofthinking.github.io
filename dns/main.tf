@@ -102,13 +102,6 @@ resource "ovh_domain_zone_record" "net_wayofthinking_www" {
   target    = "${local.net_zone}."
 }
 
-resource "ovh_domain_zone_redirection" "net_wayofthinking" {
-  zone      = local.net_zone
-  subdomain = ""
-  type      = "visible"
-  target    = "www.wayofthinking.net"
-}
-
 resource "ovh_domain_zone_record" "net_wayofthinking_records" {
   count     = length(local.net_records)
   zone      = local.net_zone
