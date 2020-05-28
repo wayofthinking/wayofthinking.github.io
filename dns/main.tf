@@ -217,6 +217,13 @@ resource "ovh_domain_zone_redirection" "eu_wayofthinking" {
   target    = "www.wayofthinking.eu"
 }
 
+resource "ovh_domain_zone_record" "eu_gsuite_site_verification" {
+  zone      = local.eu_zone
+  fieldtype = "TXT"
+  ttl       = 60
+  target    = "\"google-site-verification=jncyCZipyOxhCFlrpp1UgSVFeqWAXBCp7Dowv8vnZ_w\""
+}
+
 resource "ovh_domain_zone_record" "eu_wayofthinking_records" {
   count     = length(local.be_records)
   zone      = local.eu_zone
