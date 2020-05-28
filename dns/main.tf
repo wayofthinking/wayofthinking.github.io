@@ -21,7 +21,7 @@ locals {
     "ns109.ovh.net."
   ]
 
-  be_gsuite_mx_records = [
+  gsuite_mx_records_for_be = [
     "1 aspmx.l.google.com.",
     "3 alt1.aspmx.l.google.com.",
     "3 alt2.aspmx.l.google.com.",
@@ -29,7 +29,7 @@ locals {
     "5 aspmx3.googlemail.com."
   ]
 
-  net_gsuite_mx_records = concat(local.be_gsuite_mx_records,
+  gsuite_mx_records_for_net = concat(local.gsuite_mx_records_for_be,
   [
     "5 aspmx4.googlemail.com.",
     "5 aspmx5.googlemail.com."
@@ -119,11 +119,11 @@ resource "ovh_domain_zone_record" "net_gsuite_site_verification" {
 }
 
 resource "ovh_domain_zone_record" "net_gsuite_mail" {
-  count     = length(local.net_gsuite_mx_records)
+  count     = length(local.gsuite_mx_records_for_net)
   zone      = local.net_zone
   fieldtype = "MX"
   ttl       = 0
-  target    = local.net_gsuite_mx_records[count.index]
+  target    = local.gsuite_mx_records_for_net[count.index]
 }
 
 resource "ovh_domain_zone_record" "be_name_server" {
@@ -164,11 +164,11 @@ resource "ovh_domain_zone_record" "be_gsuite_site_verification" {
 }
 
 resource "ovh_domain_zone_record" "be_gsuite_mail" {
-  count     = length(local.be_gsuite_mx_records)
+  count     = length(local.gsuite_mx_records_for_be)
   zone      = local.be_zone
   fieldtype = "MX"
   ttl       = 0
-  target    = local.be_gsuite_mx_records[count.index]
+  target    = local.gsuite_mx_records_for_be[count.index]
 }
 
 resource "ovh_domain_zone_record" "be_wayofthinking_records" {
@@ -218,11 +218,11 @@ resource "ovh_domain_zone_record" "eu_gsuite_site_verification" {
 }
 
 resource "ovh_domain_zone_record" "eu_gsuite_mail" {
-  count     = length(local.be_gsuite_mx_records)
+  count     = length(local.gsuite_mx_records_for_be)
   zone      = local.eu_zone
   fieldtype = "MX"
   ttl       = 0
-  target    = local.be_gsuite_mx_records[count.index]
+  target    = local.gsuite_mx_records_for_be[count.index]
 }
 
 resource "ovh_domain_zone_record" "eu_wayofthinking_records" {
