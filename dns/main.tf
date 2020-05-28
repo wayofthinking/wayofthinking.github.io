@@ -27,6 +27,12 @@ locals {
     "5 aspmx3.googlemail.com."
   ]
 
+  net_gsuite_mx_records = concat(local.be_gsuite_mx_records,
+  [
+    "5 aspmx4.googlemail.com.",
+    "5 aspmx5.googlemail.com."
+  ])
+
   net_records = [
     { subdomain = "_autodiscover._tcp", fieldtype = "SRV", target = "0 0 443 mailconfig.ovh.net." },
     { subdomain = "_imaps._tcp", fieldtype = "SRV", target = "0 0 993 ssl0.ovh.net." },
@@ -115,6 +121,14 @@ resource "ovh_domain_zone_record" "net_gsuite_site_verification" {
   fieldtype = "TXT"
   ttl       = 60
   target    = "\"google-site-verification=2V4XwMeXE8SYmcHAQ30NlAUArvR8NFgotefUmO-4x2c\""
+}
+
+resource "ovh_domain_zone_record" "net_gsuite_mail" {
+  count     = length(local.net_gsuite_mx_records)
+  zone      = local.net_zone
+  fieldtype = "MX"
+  ttl       = 0
+  target    = local.net_gsuite_mx_records[count.index]
 }
 
 resource "ovh_domain_zone_record" "be_name_server" {
