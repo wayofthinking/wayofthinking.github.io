@@ -110,6 +110,13 @@ resource "ovh_domain_zone_record" "net_wayofthinking_records" {
   target    = local.net_records[count.index].target
 }
 
+resource "ovh_domain_zone_record" "net_gsuite_site_verification" {
+  zone      = local.net_zone
+  fieldtype = "TXT"
+  ttl       = 60
+  target    = "\"google-site-verification=2V4XwMeXE8SYmcHAQ30NlAUArvR8NFgotefUmO-4x2c\""
+}
+
 resource "ovh_domain_zone_record" "be_name_server" {
   count     = length(local.ns_records)
   zone      = local.be_zone
