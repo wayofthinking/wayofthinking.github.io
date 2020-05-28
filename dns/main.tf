@@ -160,8 +160,8 @@ resource "ovh_domain_zone_record" "be_wayofthinking_www" {
 resource "ovh_domain_zone_redirection" "be_wayofthinking" {
   zone      = local.be_zone
   subdomain = ""
-  type      = "visible"
-  target    = "www.wayofthinking.be"
+  type      = "visiblePermanent"
+  target    = "http://wayofthinking.net"
 }
 
 resource "ovh_domain_zone_record" "be_gsuite_site_verification" {
