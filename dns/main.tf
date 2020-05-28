@@ -35,6 +35,12 @@ locals {
     "5 aspmx5.googlemail.com."
   ])
 
+  gsuite_cname_records = [
+    { subdomain = "calendar", target = "ghs.googlehosted.com." },
+    { subdomain = "drive", target = "ghs.googlehosted.com." },
+    { subdomain = "mail", target = "ghs.googlehosted.com." }
+  ]
+
   net_records = [
     { subdomain = "_autodiscover._tcp", fieldtype = "SRV", target = "0 0 443 mailconfig.ovh.net." },
     { subdomain = "_imaps._tcp", fieldtype = "SRV", target = "0 0 993 ssl0.ovh.net." },
@@ -117,6 +123,15 @@ resource "ovh_domain_zone_record" "net_gsuite_mail" {
   fieldtype = "MX"
   ttl       = 0
   target    = local.gsuite_mx_records_for_net[count.index]
+}
+
+resource "ovh_domain_zone_record" "net_gsuite_cname" {
+  count     = length(local.gsuite_cname_records)
+  zone      = local.net_zone
+  subdomain = local.gsuite_cname_records[count.index].subdomain
+  fieldtype = "CNAME"
+  ttl       = 10800
+  target    = local.gsuite_cname_records[count.index].target
 }
 
 resource "ovh_domain_zone_record" "be_name_server" {
