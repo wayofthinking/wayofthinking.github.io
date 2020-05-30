@@ -8,13 +8,13 @@ provider "ovh" {
 }
 
 locals {
-  # OVH does not accept a TTL lower than 60 !
-  ttl     = 86400
   net_zone = "wayofthinking.net"
-  be_zone = "wayofthinking.be"
-  eu_zone = "wayofthinking.eu"
+  be_zone  = "wayofthinking.be"
+  eu_zone  = "wayofthinking.eu"
 
-  ip = "213.186.33.5"
+  # OVH does not accept a TTL lower than 60 !
+  ttl = 86400
+  ip  = "213.186.33.5"
 
   ns_records = [
     "dns109.ovh.net.",
@@ -29,8 +29,7 @@ locals {
     "5 aspmx3.googlemail.com."
   ]
 
-  gsuite_mx_records_for_net = concat(local.gsuite_mx_records_for_be,
-  [
+  gsuite_mx_records_for_net = concat(local.gsuite_mx_records_for_be, [
     "5 aspmx4.googlemail.com.",
     "5 aspmx5.googlemail.com."
   ])
