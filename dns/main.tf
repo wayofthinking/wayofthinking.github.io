@@ -212,8 +212,8 @@ resource "ovh_domain_zone_record" "eu_wayofthinking_www" {
 resource "ovh_domain_zone_redirection" "eu_wayofthinking" {
   zone      = local.eu_zone
   subdomain = ""
-  type      = "visible"
-  target    = "www.wayofthinking.eu"
+  type      = "visiblePermanent"
+  target    = "http://wayofthinking.net"
 }
 
 resource "ovh_domain_zone_record" "eu_gsuite_site_verification" {
