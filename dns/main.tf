@@ -13,8 +13,8 @@ locals {
   eu_zone  = "wayofthinking.eu"
 
   # OVH does not accept a TTL lower than 60 !
-  ttl = 86400
-  ip  = "213.186.33.5"
+  ttl    = 86400
+  ovh_ip = "213.186.33.5"
 
   ns_records = [
     "dns109.ovh.net.",
@@ -108,7 +108,7 @@ resource "ovh_domain_zone_record" "be_wayofthinking" {
   zone      = local.be_zone
   fieldtype = "A"
   ttl       = 0
-  target    = local.ip
+  target    = local.ovh_ip
 }
 
 resource "ovh_domain_zone_record" "be_wayofthinking_www" {
@@ -160,7 +160,7 @@ resource "ovh_domain_zone_record" "eu_wayofthinking" {
   zone      = local.eu_zone
   fieldtype = "A"
   ttl       = 0
-  target    = local.ip
+  target    = local.ovh_ip
 }
 
 resource "ovh_domain_zone_record" "eu_wayofthinking_www" {
