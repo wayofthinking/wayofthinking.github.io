@@ -99,15 +99,6 @@ resource "ovh_domain_zone_record" "net_wayofthinking_www" {
   target    = "wayofthinking.github.io."
 }
 
-resource "ovh_domain_zone_record" "net_wayofthinking_records" {
-  count     = length(local.net_records)
-  zone      = local.net_zone
-  subdomain = local.net_records[count.index].subdomain
-  fieldtype = local.net_records[count.index].fieldtype
-  ttl       = 0
-  target    = local.net_records[count.index].target
-}
-
 resource "ovh_domain_zone_record" "net_gsuite_site_verification" {
   zone      = local.net_zone
   fieldtype = "TXT"
@@ -130,6 +121,15 @@ resource "ovh_domain_zone_record" "net_gsuite_cname" {
   fieldtype = "CNAME"
   ttl       = 10800
   target    = local.gsuite_cname_records[count.index].target
+}
+
+resource "ovh_domain_zone_record" "net_wayofthinking_records" {
+  count     = length(local.net_records)
+  zone      = local.net_zone
+  subdomain = local.net_records[count.index].subdomain
+  fieldtype = local.net_records[count.index].fieldtype
+  ttl       = 0
+  target    = local.net_records[count.index].target
 }
 
 resource "ovh_domain_zone_record" "be_name_server" {
