@@ -106,6 +106,13 @@ resource "ovh_domain_zone_record" "net_gsuite_site_verification" {
   target    = "\"google-site-verification=2V4XwMeXE8SYmcHAQ30NlAUArvR8NFgotefUmO-4x2c\""
 }
 
+resource "ovh_domain_zone_record" "net_spf" {
+  zone      = local.net_zone
+  fieldtype = "SPF"
+  ttl       = 0
+  target    = "\"v=spf1 +all\""
+}
+
 resource "ovh_domain_zone_record" "net_gsuite_mail" {
   count     = length(local.gsuite_mx_records_for_net)
   zone      = local.net_zone
@@ -169,6 +176,13 @@ resource "ovh_domain_zone_record" "be_gsuite_site_verification" {
   target    = "\"google-site-verification=Z85qsHhGDqO317DaUZRgMeCGH44FlJz333T_wgRjiPE\""
 }
 
+resource "ovh_domain_zone_record" "be_spf" {
+  zone      = local.be_zone
+  fieldtype = "SPF"
+  ttl       = 0
+  target    = "\"v=spf1 +all\""
+}
+
 resource "ovh_domain_zone_record" "be_gsuite_mail" {
   count     = length(local.gsuite_mx_records_for_be)
   zone      = local.be_zone
@@ -221,6 +235,13 @@ resource "ovh_domain_zone_record" "eu_gsuite_site_verification" {
   fieldtype = "TXT"
   ttl       = 60
   target    = "\"google-site-verification=jncyCZipyOxhCFlrpp1UgSVFeqWAXBCp7Dowv8vnZ_w\""
+}
+
+resource "ovh_domain_zone_record" "eu_spf" {
+  zone      = local.eu_zone
+  fieldtype = "SPF"
+  ttl       = 0
+  target    = "\"v=spf1 +all\""
 }
 
 resource "ovh_domain_zone_record" "eu_gsuite_mail" {
