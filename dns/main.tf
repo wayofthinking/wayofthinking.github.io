@@ -9,7 +9,7 @@ provider "ovh" {
 
 locals {
   zone_net = "wayofthinking.net"
-  be_zone  = "wayofthinking.be"
+  zone_be  = "wayofthinking.be"
   eu_zone  = "wayofthinking.eu"
 
   # OVH does not accept a TTL lower than 60 !
@@ -98,43 +98,43 @@ resource "ovh_domain_zone_record" "net_gsuite_cname" {
 
 resource "ovh_domain_zone_record" "be_name_server" {
   count     = length(local.ns_records)
-  zone      = local.be_zone
+  zone      = local.zone_be
   fieldtype = "NS"
   ttl       = 0
   target    = local.ns_records[count.index]
 }
 
 resource "ovh_domain_zone_record" "be_wayofthinking" {
-  zone      = local.be_zone
+  zone      = local.zone_be
   fieldtype = "A"
   ttl       = 0
   target    = local.ovh_ip
 }
 
 resource "ovh_domain_zone_record" "be_wayofthinking_www" {
-  zone      = local.be_zone
+  zone      = local.zone_be
   subdomain = "www"
   fieldtype = "CNAME"
   ttl       = 0
-  target    = "${local.be_zone}."
+  target    = "${local.zone_be}."
 }
 
 resource "ovh_domain_zone_redirection" "be_wayofthinking" {
-  zone      = local.be_zone
+  zone      = local.zone_be
   subdomain = ""
   type      = "visiblePermanent"
   target    = "http://wayofthinking.net"
 }
 
 resource "ovh_domain_zone_record" "be_gsuite_site_verification" {
-  zone      = local.be_zone
+  zone      = local.zone_be
   fieldtype = "TXT"
   ttl       = 60
   target    = "\"google-site-verification=Z85qsHhGDqO317DaUZRgMeCGH44FlJz333T_wgRjiPE\""
 }
 
 resource "ovh_domain_zone_record" "be_spf" {
-  zone      = local.be_zone
+  zone      = local.zone_be
   fieldtype = "SPF"
   ttl       = 0
   target    = "\"v=spf1 +all\""
@@ -142,7 +142,7 @@ resource "ovh_domain_zone_record" "be_spf" {
 
 resource "ovh_domain_zone_record" "be_gsuite_mail" {
   count     = length(local.gsuite_mx_records_for_be)
-  zone      = local.be_zone
+  zone      = local.zone_be
   fieldtype = "MX"
   ttl       = 0
   target    = local.gsuite_mx_records_for_be[count.index]
