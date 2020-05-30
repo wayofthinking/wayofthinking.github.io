@@ -52,12 +52,6 @@ locals {
     { subdomain = "_imaps._tcp", fieldtype = "SRV", target = "0 0 993 ssl0.ovh.net." },
     { subdomain = "_submission._tcp", fieldtype = "SRV", target = "0 0 465 ssl0.ovh.net." },
   ]
-
-  eu_records = [
-    { subdomain = "_autodiscover._tcp", fieldtype = "SRV", target = "0 0 443 mailconfig.ovh.net." },
-    { subdomain = "_imaps._tcp", fieldtype = "SRV", target = "0 0 993 ssl0.ovh.net." },
-    { subdomain = "_submission._tcp", fieldtype = "SRV", target = "0 0 465 ssl0.ovh.net." },
-  ]
 }
 
 resource "ovh_domain_zone_record" "net_name_server" {
@@ -235,13 +229,4 @@ resource "ovh_domain_zone_record" "eu_gsuite_mail" {
   fieldtype = "MX"
   ttl       = 0
   target    = local.gsuite_mx_records_for_be[count.index]
-}
-
-resource "ovh_domain_zone_record" "eu_wayofthinking_records" {
-  count     = length(local.eu_records)
-  zone      = local.eu_zone
-  subdomain = local.eu_records[count.index].subdomain
-  fieldtype = local.eu_records[count.index].fieldtype
-  ttl       = 0
-  target    = local.eu_records[count.index].target
 }
