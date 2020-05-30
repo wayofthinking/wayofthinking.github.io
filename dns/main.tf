@@ -45,7 +45,6 @@ locals {
     { subdomain = "_autodiscover._tcp", fieldtype = "SRV", target = "0 0 443 mailconfig.ovh.net." },
     { subdomain = "_imaps._tcp", fieldtype = "SRV", target = "0 0 993 ssl0.ovh.net." },
     { subdomain = "_submission._tcp", fieldtype = "SRV", target = "0 0 465 ssl0.ovh.net." },
-    { subdomain = "www", fieldtype = "TXT", target = "\"3|welcome\"" },
   ]
 
   be_records = [
