@@ -8,7 +8,7 @@ provider "ovh" {
 }
 
 locals {
-  net_zone = "wayofthinking.net"
+  zone_net = "wayofthinking.net"
   be_zone  = "wayofthinking.be"
   eu_zone  = "wayofthinking.eu"
 
@@ -43,7 +43,7 @@ locals {
 
 resource "ovh_domain_zone_record" "net_name_server" {
   count     = length(local.ns_records)
-  zone      = local.net_zone
+  zone      = local.zone_net
   fieldtype = "NS"
   ttl       = 0
   target    = local.ns_records[count.index]
@@ -51,14 +51,14 @@ resource "ovh_domain_zone_record" "net_name_server" {
 
 resource "ovh_domain_zone_record" "net_wayofthinking" {
   count     = length(var.website_ip)
-  zone      = local.net_zone
+  zone      = local.zone_net
   fieldtype = "A"
   ttl       = 0
   target    = var.website_ip[count.index]
 }
 
 resource "ovh_domain_zone_record" "net_wayofthinking_www" {
-  zone      = local.net_zone
+  zone      = local.zone_net
   subdomain = "www"
   fieldtype = "CNAME"
   ttl       = 0
@@ -66,14 +66,14 @@ resource "ovh_domain_zone_record" "net_wayofthinking_www" {
 }
 
 resource "ovh_domain_zone_record" "net_gsuite_site_verification" {
-  zone      = local.net_zone
+  zone      = local.zone_net
   fieldtype = "TXT"
   ttl       = 60
   target    = "\"google-site-verification=2V4XwMeXE8SYmcHAQ30NlAUArvR8NFgotefUmO-4x2c\""
 }
 
 resource "ovh_domain_zone_record" "net_spf" {
-  zone      = local.net_zone
+  zone      = local.zone_net
   fieldtype = "SPF"
   ttl       = 0
   target    = "\"v=spf1 +all\""
@@ -81,7 +81,7 @@ resource "ovh_domain_zone_record" "net_spf" {
 
 resource "ovh_domain_zone_record" "net_gsuite_mail" {
   count     = length(local.gsuite_mx_records_for_net)
-  zone      = local.net_zone
+  zone      = local.zone_net
   fieldtype = "MX"
   ttl       = 0
   target    = local.gsuite_mx_records_for_net[count.index]
@@ -89,7 +89,7 @@ resource "ovh_domain_zone_record" "net_gsuite_mail" {
 
 resource "ovh_domain_zone_record" "net_gsuite_cname" {
   count     = length(local.gsuite_cname_records)
-  zone      = local.net_zone
+  zone      = local.zone_net
   subdomain = local.gsuite_cname_records[count.index].subdomain
   fieldtype = "CNAME"
   ttl       = 10800
