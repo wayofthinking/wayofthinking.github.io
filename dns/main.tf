@@ -80,7 +80,7 @@ resource "ovh_domain_zone_record" "net_gsuite_site_verification" {
 
 resource "ovh_domain_zone_record" "net_spf" {
   zone      = local.zone_net
-  fieldtype = "SPF"
+  fieldtype = "TXT"
   ttl       = local.ttl_spf
   target    = local.spf_record
 }
@@ -141,7 +141,7 @@ resource "ovh_domain_zone_record" "be_gsuite_site_verification" {
 
 resource "ovh_domain_zone_record" "be_spf" {
   zone      = local.zone_be
-  fieldtype = "SPF"
+  fieldtype = "TXT"
   ttl       = local.ttl_spf
   target    = local.spf_record
 }
@@ -193,7 +193,7 @@ resource "ovh_domain_zone_record" "eu_gsuite_site_verification" {
 
 resource "ovh_domain_zone_record" "eu_spf" {
   zone      = local.zone_eu
-  fieldtype = "SPF"
+  fieldtype = "TXT"
   ttl       = local.ttl_spf
   target    = local.spf_record
 }
