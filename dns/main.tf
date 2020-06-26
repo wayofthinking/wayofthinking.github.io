@@ -46,6 +46,7 @@ locals {
 
   spf_record = "\"v=spf1 include:_spf.google.com ~all\""
   dkim_net   = "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCobrYREvBte0muos5K/UJSErNMG0vC3KYpMIvvCP9cXtl0y6xK+2GipfKWQ3Oc0nGng9kxqI6WYyOjJ4nH6+Nc0OhfyEg2YnyBbBtBYqzdxQSoovgE2cGcpCk7X1jeXgVv60RQwNQ2C9ZlGj5v+pVW0JcPSH9s9Gtuf5y/t150cQIDAQAB"
+  dkim_be    = "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCsbmGNLcdeTBfyhkk/tcLodYqKQkg3KoGJtNEuiByI+ESg0i/QzbKTqBvwRF77RDgXE79iooFfWp/Kb/UTNgmUK7V+maqO/r+R8o/TfcK/C2sKRc6+QXXSDBXflYsKe1tpyKu/j3oGAGl8HMt1kcnunOtkMYNPF+Ic5A4PFmReJQIDAQAB"
 }
 
 resource "ovh_domain_zone_record" "net_name_server" {
@@ -153,6 +154,14 @@ resource "ovh_domain_zone_record" "be_spf" {
   fieldtype = "TXT"
   ttl       = local.ttl_spf
   target    = local.spf_record
+}
+
+resource "ovh_domain_zone_record" "be_dkim" {
+  zone      = local.zone_be
+  subdomain = "google._domainkey"
+  fieldtype = "TXT"
+  ttl       = local.ttl_spf
+  target    = local.dkim_be
 }
 
 resource "ovh_domain_zone_record" "be_gsuite_mail" {
