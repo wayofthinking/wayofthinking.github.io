@@ -50,12 +50,11 @@ locals {
   dkim_eu    = "v=DKIM1; k=rsa; p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCEu0esc/eS0zVBXpvHUQNSKM6nxRWDbOfn56BwB10ou3qwv8K81GFpGKqp3gDMRkbDuw6eRc2RTaHxKGrQreGRvGVv1RLF5TMcjVFKXOihukuRoVt4uPV8pzG5nGgBkPHZgqh1ZDHOFgFrtCVbxxBF45EyuloZu6cOEy9GnAM7fQIDAQAB"
 }
 
-resource "ovh_domain_zone_record" "net_name_server" {
-  count     = length(local.ns_records)
-  zone      = local.zone_net
-  fieldtype = "NS"
-  ttl       = local.ttl_ns
-  target    = local.ns_records[count.index]
+module "net" {
+  source = "./modules/zone"
+
+  zone         = local.zone_net
+  name_servers = local.ns_records
 }
 
 resource "ovh_domain_zone_record" "net_wayofthinking" {
