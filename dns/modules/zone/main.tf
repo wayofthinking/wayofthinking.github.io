@@ -26,3 +26,11 @@ resource "ovh_domain_zone_record" "spf" {
   ttl       = local.ttl_spf
   target    = var.spf
 }
+
+resource "ovh_domain_zone_record" "dkim" {
+  zone      = var.zone
+  subdomain = "google._domainkey"
+  fieldtype = "TXT"
+  ttl       = local.ttl_spf
+  target    = var.dkim
+}

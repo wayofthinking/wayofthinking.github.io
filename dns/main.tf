@@ -57,6 +57,7 @@ module "net" {
   name_servers             = local.name_servers
   google_site_verification = "2V4XwMeXE8SYmcHAQ30NlAUArvR8NFgotefUmO-4x2c"
   spf = local.spf
+  dkim = local.dkim_net
 }
 
 module "be" {
@@ -66,6 +67,7 @@ module "be" {
   name_servers = local.name_servers
   google_site_verification = "Z85qsHhGDqO317DaUZRgMeCGH44FlJz333T_wgRjiPE"
   spf = local.spf
+  dkim = local.dkim_be
 }
 
 module "eu" {
@@ -75,6 +77,7 @@ module "eu" {
   name_servers = local.name_servers
   google_site_verification = "jncyCZipyOxhCFlrpp1UgSVFeqWAXBCp7Dowv8vnZ_w"
   spf = local.spf
+  dkim = local.dkim_eu
 }
 
 resource "ovh_domain_zone_record" "net_wayofthinking" {
@@ -91,14 +94,6 @@ resource "ovh_domain_zone_record" "net_wayofthinking_www" {
   fieldtype = "CNAME"
   ttl       = local.ttl_a
   target    = "wayofthinking.github.io."
-}
-
-resource "ovh_domain_zone_record" "net_dkim" {
-  zone      = local.zone_net
-  subdomain = "google._domainkey"
-  fieldtype = "TXT"
-  ttl       = local.ttl_spf
-  target    = local.dkim_net
 }
 
 resource "ovh_domain_zone_record" "net_gsuite_mail" {
@@ -140,14 +135,6 @@ resource "ovh_domain_zone_redirection" "be_wayofthinking" {
   target    = "http://wayofthinking.net"
 }
 
-resource "ovh_domain_zone_record" "be_dkim" {
-  zone      = local.zone_be
-  subdomain = "google._domainkey"
-  fieldtype = "TXT"
-  ttl       = local.ttl_spf
-  target    = local.dkim_be
-}
-
 resource "ovh_domain_zone_record" "be_gsuite_mail" {
   count     = length(local.gsuite_mx_records_for_be)
   zone      = local.zone_be
@@ -176,14 +163,6 @@ resource "ovh_domain_zone_redirection" "eu_wayofthinking" {
   subdomain = ""
   type      = "visiblePermanent"
   target    = "http://wayofthinking.net"
-}
-
-resource "ovh_domain_zone_record" "eu_dkim" {
-  zone      = local.zone_eu
-  subdomain = "google._domainkey"
-  fieldtype = "TXT"
-  ttl       = local.ttl_spf
-  target    = local.dkim_eu
 }
 
 resource "ovh_domain_zone_record" "eu_gsuite_mail" {

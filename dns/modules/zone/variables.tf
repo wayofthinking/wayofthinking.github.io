@@ -18,3 +18,8 @@ variable "spf" {
   description = "SPF record"
   type        = string
 }
+
+variable "dkim" {
+  description = "DKIM record"
+  type        = string
+}
