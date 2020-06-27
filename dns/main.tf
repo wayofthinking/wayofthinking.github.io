@@ -57,6 +57,13 @@ module "net" {
   name_servers = local.ns_records
 }
 
+module "be" {
+  source = "./modules/zone"
+
+  zone         = local.zone_be
+  name_servers = local.ns_records
+}
+
 resource "ovh_domain_zone_record" "net_wayofthinking" {
   count     = length(var.website_ip)
   zone      = local.zone_net
@@ -110,14 +117,6 @@ resource "ovh_domain_zone_record" "net_gsuite_cname" {
   fieldtype = "CNAME"
   ttl       = local.ttl_a
   target    = local.gsuite_cname_records[count.index].target
-}
-
-resource "ovh_domain_zone_record" "be_name_server" {
-  count     = length(local.ns_records)
-  zone      = local.zone_be
-  fieldtype = "NS"
-  ttl       = local.ttl_ns
-  target    = local.ns_records[count.index]
 }
 
 resource "ovh_domain_zone_record" "be_wayofthinking" {
