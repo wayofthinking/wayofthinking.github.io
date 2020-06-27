@@ -53,8 +53,9 @@ locals {
 module "net" {
   source = "./modules/zone"
 
-  zone         = local.zone_net
-  name_servers = local.ns_records
+  zone                     = local.zone_net
+  name_servers             = local.ns_records
+  google_site_verification = "2V4XwMeXE8SYmcHAQ30NlAUArvR8NFgotefUmO-4x2c"
 }
 
 module "be" {
@@ -62,6 +63,7 @@ module "be" {
 
   zone         = local.zone_be
   name_servers = local.ns_records
+  google_site_verification = "Z85qsHhGDqO317DaUZRgMeCGH44FlJz333T_wgRjiPE"
 }
 
 module "eu" {
@@ -69,6 +71,7 @@ module "eu" {
 
   zone         = local.zone_eu
   name_servers = local.ns_records
+  google_site_verification = "jncyCZipyOxhCFlrpp1UgSVFeqWAXBCp7Dowv8vnZ_w"
 }
 
 resource "ovh_domain_zone_record" "net_wayofthinking" {
@@ -85,13 +88,6 @@ resource "ovh_domain_zone_record" "net_wayofthinking_www" {
   fieldtype = "CNAME"
   ttl       = local.ttl_a
   target    = "wayofthinking.github.io."
-}
-
-resource "ovh_domain_zone_record" "net_gsuite_site_verification" {
-  zone      = local.zone_net
-  fieldtype = "TXT"
-  ttl       = local.ttl_a
-  target    = "\"google-site-verification=2V4XwMeXE8SYmcHAQ30NlAUArvR8NFgotefUmO-4x2c\""
 }
 
 resource "ovh_domain_zone_record" "net_spf" {
@@ -148,13 +144,6 @@ resource "ovh_domain_zone_redirection" "be_wayofthinking" {
   target    = "http://wayofthinking.net"
 }
 
-resource "ovh_domain_zone_record" "be_gsuite_site_verification" {
-  zone      = local.zone_be
-  fieldtype = "TXT"
-  ttl       = local.ttl_a
-  target    = "\"google-site-verification=Z85qsHhGDqO317DaUZRgMeCGH44FlJz333T_wgRjiPE\""
-}
-
 resource "ovh_domain_zone_record" "be_spf" {
   zone      = local.zone_be
   fieldtype = "TXT"
@@ -198,13 +187,6 @@ resource "ovh_domain_zone_redirection" "eu_wayofthinking" {
   subdomain = ""
   type      = "visiblePermanent"
   target    = "http://wayofthinking.net"
-}
-
-resource "ovh_domain_zone_record" "eu_gsuite_site_verification" {
-  zone      = local.zone_eu
-  fieldtype = "TXT"
-  ttl       = local.ttl_a
-  target    = "\"google-site-verification=jncyCZipyOxhCFlrpp1UgSVFeqWAXBCp7Dowv8vnZ_w\""
 }
 
 resource "ovh_domain_zone_record" "eu_spf" {
