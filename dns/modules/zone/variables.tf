@@ -14,6 +14,11 @@ variable "google_site_verification" {
   type        = string
 }
 
+variable "mx" {
+  description = "MX records"
+  type        = list(string)
+}
+
 variable "spf" {
   description = "SPF record"
   type        = string

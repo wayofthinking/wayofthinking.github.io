@@ -56,6 +56,7 @@ module "net" {
   zone                     = local.zone_net
   name_servers             = local.name_servers
   google_site_verification = "2V4XwMeXE8SYmcHAQ30NlAUArvR8NFgotefUmO-4x2c"
+  mx = local.gsuite_mx_records_for_net
   spf = local.spf
   dkim = local.dkim_net
 }
@@ -66,6 +67,7 @@ module "be" {
   zone         = local.zone_be
   name_servers = local.name_servers
   google_site_verification = "Z85qsHhGDqO317DaUZRgMeCGH44FlJz333T_wgRjiPE"
+  mx = local.gsuite_mx_records_for_be
   spf = local.spf
   dkim = local.dkim_be
 }
@@ -76,6 +78,7 @@ module "eu" {
   zone         = local.zone_eu
   name_servers = local.name_servers
   google_site_verification = "jncyCZipyOxhCFlrpp1UgSVFeqWAXBCp7Dowv8vnZ_w"
+  mx = local.gsuite_mx_records_for_be
   spf = local.spf
   dkim = local.dkim_eu
 }
@@ -94,14 +97,6 @@ resource "ovh_domain_zone_record" "net_wayofthinking_www" {
   fieldtype = "CNAME"
   ttl       = local.ttl_a
   target    = "wayofthinking.github.io."
-}
-
-resource "ovh_domain_zone_record" "net_gsuite_mail" {
-  count     = length(local.gsuite_mx_records_for_net)
-  zone      = local.zone_net
-  fieldtype = "MX"
-  ttl       = local.ttl_mx
-  target    = local.gsuite_mx_records_for_net[count.index]
 }
 
 resource "ovh_domain_zone_record" "net_gsuite_cname" {
@@ -135,14 +130,6 @@ resource "ovh_domain_zone_redirection" "be_wayofthinking" {
   target    = "http://wayofthinking.net"
 }
 
-resource "ovh_domain_zone_record" "be_gsuite_mail" {
-  count     = length(local.gsuite_mx_records_for_be)
-  zone      = local.zone_be
-  fieldtype = "MX"
-  ttl       = local.ttl_mx
-  target    = local.gsuite_mx_records_for_be[count.index]
-}
-
 resource "ovh_domain_zone_record" "eu_wayofthinking" {
   zone      = local.zone_eu
   fieldtype = "A"
@@ -163,12 +150,4 @@ resource "ovh_domain_zone_redirection" "eu_wayofthinking" {
   subdomain = ""
   type      = "visiblePermanent"
   target    = "http://wayofthinking.net"
-}
-
-resource "ovh_domain_zone_record" "eu_gsuite_mail" {
-  count     = length(local.gsuite_mx_records_for_be)
-  zone      = local.zone_eu
-  fieldtype = "MX"
-  ttl       = local.ttl_mx
-  target    = local.gsuite_mx_records_for_be[count.index]
 }
