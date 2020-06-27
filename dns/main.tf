@@ -55,6 +55,7 @@ module "net" {
 
   zone         = local.zone_net
   name_servers = local.name_servers
+  ipv4         = var.website_ip
 
   google_site_verification = "2V4XwMeXE8SYmcHAQ30NlAUArvR8NFgotefUmO-4x2c"
 
@@ -68,6 +69,7 @@ module "be" {
 
   zone         = local.zone_be
   name_servers = local.name_servers
+  ipv4         = [local.ovh_ip] 
 
   google_site_verification = "Z85qsHhGDqO317DaUZRgMeCGH44FlJz333T_wgRjiPE"
 
@@ -81,20 +83,13 @@ module "eu" {
 
   zone         = local.zone_eu
   name_servers = local.name_servers
+  ipv4         = [local.ovh_ip]
 
   google_site_verification = "jncyCZipyOxhCFlrpp1UgSVFeqWAXBCp7Dowv8vnZ_w"
 
   mx   = local.gsuite_mx_records_for_be
   spf  = local.spf
   dkim = local.dkim_eu
-}
-
-resource "ovh_domain_zone_record" "net_wayofthinking" {
-  count     = length(var.website_ip)
-  zone      = local.zone_net
-  fieldtype = "A"
-  ttl       = local.ttl_a
-  target    = var.website_ip[count.index]
 }
 
 resource "ovh_domain_zone_record" "net_wayofthinking_www" {
@@ -114,13 +109,6 @@ resource "ovh_domain_zone_record" "net_gsuite_cname" {
   target    = local.gsuite_cname_records[count.index].target
 }
 
-resource "ovh_domain_zone_record" "be_wayofthinking" {
-  zone      = local.zone_be
-  fieldtype = "A"
-  ttl       = local.ttl_a
-  target    = local.ovh_ip
-}
-
 resource "ovh_domain_zone_record" "be_wayofthinking_www" {
   zone      = local.zone_be
   subdomain = "www"
@@ -134,13 +122,6 @@ resource "ovh_domain_zone_redirection" "be_wayofthinking" {
   subdomain = ""
   type      = "visiblePermanent"
   target    = "http://wayofthinking.net"
-}
-
-resource "ovh_domain_zone_record" "eu_wayofthinking" {
-  zone      = local.zone_eu
-  fieldtype = "A"
-  ttl       = local.ttl_a
-  target    = local.ovh_ip
 }
 
 resource "ovh_domain_zone_record" "eu_wayofthinking_www" {

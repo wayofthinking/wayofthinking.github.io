@@ -14,6 +14,14 @@ resource "ovh_domain_zone_record" "ns" {
   target    = var.name_servers[count.index]
 }
 
+resource "ovh_domain_zone_record" "a" {
+  count     = length(var.ipv4)
+  zone      = var.zone
+  fieldtype = "A"
+  ttl       = local.ttl_a
+  target    = var.ipv4[count.index]
+}
+
 resource "ovh_domain_zone_record" "google_site_verification" {
   zone      = var.zone
   fieldtype = "TXT"

@@ -9,6 +9,11 @@ variable "name_servers" {
   type        = list(string)
 }
 
+variable "ipv4" {
+  description = "Target IPs for A records"
+  type        = list(string)
+}
+
 variable "google_site_verification" {
   description = "Verification code used by GSuite to check for ownership"
   type        = string
