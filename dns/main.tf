@@ -20,7 +20,7 @@ locals {
 
   ovh_ip = "213.186.33.5"
 
-  ns_records = [
+  name_servers = [
     "dns109.ovh.net.",
     "ns109.ovh.net."
   ]
@@ -54,7 +54,7 @@ module "net" {
   source = "./modules/zone"
 
   zone                     = local.zone_net
-  name_servers             = local.ns_records
+  name_servers             = local.name_servers
   google_site_verification = "2V4XwMeXE8SYmcHAQ30NlAUArvR8NFgotefUmO-4x2c"
   spf = local.spf
 }
@@ -63,7 +63,7 @@ module "be" {
   source = "./modules/zone"
 
   zone         = local.zone_be
-  name_servers = local.ns_records
+  name_servers = local.name_servers
   google_site_verification = "Z85qsHhGDqO317DaUZRgMeCGH44FlJz333T_wgRjiPE"
   spf = local.spf
 }
@@ -72,7 +72,7 @@ module "eu" {
   source = "./modules/zone"
 
   zone         = local.zone_eu
-  name_servers = local.ns_records
+  name_servers = local.name_servers
   google_site_verification = "jncyCZipyOxhCFlrpp1UgSVFeqWAXBCp7Dowv8vnZ_w"
   spf = local.spf
 }
