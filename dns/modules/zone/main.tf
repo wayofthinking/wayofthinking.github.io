@@ -2,6 +2,7 @@
 locals {
   ttl_ns  = 86400
   ttl_a   = 10800
+  ttl_spf = 3600
 }
 
 resource "ovh_domain_zone_record" "ns" {
@@ -19,3 +20,9 @@ resource "ovh_domain_zone_record" "google_site_verification" {
   target    = "\"google-site-verification=${var.google_site_verification}\""
 }
 
+resource "ovh_domain_zone_record" "spf" {
+  zone      = var.zone
+  fieldtype = "TXT"
+  ttl       = local.ttl_spf
+  target    = var.spf
+}

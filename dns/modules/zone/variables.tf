@@ -10,6 +10,11 @@ variable "name_servers" {
 }
 
 variable "google_site_verification" {
-  description = "GSuite site verification code"
+  description = "Verification code used by GSuite to check for ownership"
+  type        = string
+}
+
+variable "spf" {
+  description = "SPF record"
   type        = string
 }
