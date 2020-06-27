@@ -64,6 +64,13 @@ module "be" {
   name_servers = local.ns_records
 }
 
+module "eu" {
+  source = "./modules/zone"
+
+  zone         = local.zone_eu
+  name_servers = local.ns_records
+}
+
 resource "ovh_domain_zone_record" "net_wayofthinking" {
   count     = length(var.website_ip)
   zone      = local.zone_net
@@ -169,14 +176,6 @@ resource "ovh_domain_zone_record" "be_gsuite_mail" {
   fieldtype = "MX"
   ttl       = local.ttl_mx
   target    = local.gsuite_mx_records_for_be[count.index]
-}
-
-resource "ovh_domain_zone_record" "eu_name_server" {
-  count     = length(local.ns_records)
-  zone      = local.zone_eu
-  fieldtype = "NS"
-  ttl       = local.ttl_ns
-  target    = local.ns_records[count.index]
 }
 
 resource "ovh_domain_zone_record" "eu_wayofthinking" {
