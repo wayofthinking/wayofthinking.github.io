@@ -10,8 +10,16 @@ variable "name_servers" {
 }
 
 variable "ipv4" {
-  description = "Target IPs for A records"
+  description = "List of A record target IPs"
   type        = list(string)
+}
+
+variable "aliases" {
+  description = "List of CNAME aliases"
+  type        = list(object({
+    subdomain = string
+    target    = string
+  }))
 }
 
 variable "google_site_verification" {

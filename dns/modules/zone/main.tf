@@ -22,6 +22,15 @@ resource "ovh_domain_zone_record" "a" {
   target    = var.ipv4[count.index]
 }
 
+resource "ovh_domain_zone_record" "cname" {
+  count     = length(var.aliases)
+  zone      = var.zone
+  subdomain = var.aliases[count.index].subdomain
+  fieldtype = "CNAME"
+  ttl       = local.ttl_a
+  target    = var.aliases[count.index].target
+}
+
 resource "ovh_domain_zone_record" "google_site_verification" {
   zone      = var.zone
   fieldtype = "TXT"
