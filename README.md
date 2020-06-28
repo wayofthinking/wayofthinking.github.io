@@ -4,7 +4,6 @@ The one-page website of [Way of Thinking](http://wayofthinking.net).
 
 ## TODO
 
-- Add DMARC
 - Fix problem reported by GSuite Toolbox Check MX tool for wayofthinking.be
   
   >  There should not be a mail exchanger set up on naked domain name.
