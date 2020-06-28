@@ -4,7 +4,6 @@ The one-page website of [Way of Thinking](http://wayofthinking.net).
 
 ## TODO
 
-- Add DKIM: https://admin.google.com > Apps > GSuite > GMail > Authenticate
 - Add DMARC
 - Fix problem reported by GSuite Toolbox Check MX tool for wayofthinking.be
   
