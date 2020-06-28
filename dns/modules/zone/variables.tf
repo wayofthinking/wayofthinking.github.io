@@ -36,6 +36,7 @@ variable "redirections" {
 variable "google_site_verification" {
   description = "Verification code used by GSuite to check for ownership"
   type        = string
+  default     = null
 }
 
 variable "mx" {
@@ -47,9 +48,11 @@ variable "mx" {
 variable "spf" {
   description = "SPF record"
   type        = string
+  default     = null
 }
 
 variable "dkim" {
   description = "DKIM record"
   type        = string
+  default     = null
 }

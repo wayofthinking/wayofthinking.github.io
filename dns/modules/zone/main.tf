@@ -1,5 +1,10 @@
 
 locals {
+  has_google_site_verification = var.google_site_verification == null ? 0 : 1
+
+  has_spf  = var.spf == null ? 0 : 1
+  has_dkim = var.dkim == null ? 0 : 1
+
   # OVH does not accept a TTL lower than 60 !
   ttl_ns  = 86400
   ttl_mx  = 28800
@@ -41,6 +46,7 @@ resource "ovh_domain_zone_redirection" "this" {
 }
 
 resource "ovh_domain_zone_record" "google_site_verification" {
+  count     = local.has_google_site_verification
   zone      = var.zone
   fieldtype = "TXT"
   ttl       = local.ttl_a
@@ -56,6 +62,7 @@ resource "ovh_domain_zone_record" "mx" {
 }
 
 resource "ovh_domain_zone_record" "spf" {
+  count     = local.has_spf
   zone      = var.zone
   fieldtype = "TXT"
   ttl       = local.ttl_spf
@@ -63,6 +70,7 @@ resource "ovh_domain_zone_record" "spf" {
 }
 
 resource "ovh_domain_zone_record" "dkim" {
+  count     = local.has_dkim
   zone      = var.zone
   subdomain = "google._domainkey"
   fieldtype = "TXT"
