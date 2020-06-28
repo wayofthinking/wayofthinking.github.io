@@ -12,12 +12,6 @@ locals {
   zone_be  = "wayofthinking.be"
   zone_eu  = "wayofthinking.eu"
 
-  # OVH does not accept a TTL lower than 60 !
-  ttl_mx  = 28800
-  ttl_a   = 10800
-  ttl_ns  = 86400
-  ttl_spf = 3600
-
   ovh_ip = "213.186.33.5"
 
   name_servers = [

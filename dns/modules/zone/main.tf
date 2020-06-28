@@ -1,5 +1,6 @@
 
 locals {
+  # OVH does not accept a TTL lower than 60 !
   ttl_ns  = 86400
   ttl_mx  = 28800
   ttl_a   = 10800
