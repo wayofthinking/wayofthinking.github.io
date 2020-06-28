@@ -44,8 +44,8 @@ module "net" {
   zone         = local.zone_net
   name_servers = local.name_servers
   ipv4         = var.website_ip
-  aliases      = [
-    { subdomain = "www", target = "wayofthinking.github.io."},
+  aliases = [
+    { subdomain = "www", target = "wayofthinking.github.io." },
     { subdomain = "calendar", target = "ghs.googlehosted.com." },
     { subdomain = "drive", target = "ghs.googlehosted.com." },
     { subdomain = "mail", target = "ghs.googlehosted.com." }
@@ -64,11 +64,11 @@ module "be" {
   zone         = local.zone_be
   name_servers = local.name_servers
   ipv4         = [local.ovh_ip]
-  aliases      = [
-    {subdomain = "www", target = "${local.zone_be}."}
+  aliases = [
+    { subdomain = "www", target = "${local.zone_be}." }
   ]
   redirections = [
-    {subdomain = "", type = "visiblePermanent", target = "http://wayofthinking.net"}
+    { subdomain = "", type = "visiblePermanent", target = "http://wayofthinking.net" }
   ]
 
   google_site_verification = "Z85qsHhGDqO317DaUZRgMeCGH44FlJz333T_wgRjiPE"
@@ -84,13 +84,13 @@ module "eu" {
   zone         = local.zone_eu
   name_servers = local.name_servers
   ipv4         = [local.ovh_ip]
-  aliases      = [
-    {subdomain = "www", target = "${local.zone_eu}."}
+  aliases = [
+    { subdomain = "www", target = "${local.zone_eu}." }
   ]
   redirections = [
-    {subdomain = "", type = "visiblePermanent", target = "http://wayofthinking.net"}
+    { subdomain = "", type = "visiblePermanent", target = "http://wayofthinking.net" }
   ]
-  
+
   google_site_verification = "jncyCZipyOxhCFlrpp1UgSVFeqWAXBCp7Dowv8vnZ_w"
 
   mx   = local.gsuite_mx_records_for_be
