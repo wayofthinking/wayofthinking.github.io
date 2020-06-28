@@ -73,6 +73,9 @@ module "be" {
   aliases      = [
     {subdomain = "www", target = "${local.zone_be}."}
   ]
+  redirections = [
+    {subdomain = "", type = "visiblePermanent", target = "http://wayofthinking.net"}
+  ]
 
   google_site_verification = "Z85qsHhGDqO317DaUZRgMeCGH44FlJz333T_wgRjiPE"
 
@@ -90,24 +93,13 @@ module "eu" {
   aliases      = [
     {subdomain = "www", target = "${local.zone_eu}."}
   ]
+  redirections = [
+    {subdomain = "", type = "visiblePermanent", target = "http://wayofthinking.net"}
+  ]
   
   google_site_verification = "jncyCZipyOxhCFlrpp1UgSVFeqWAXBCp7Dowv8vnZ_w"
 
   mx   = local.gsuite_mx_records_for_be
   spf  = local.spf
   dkim = local.dkim_eu
-}
-
-resource "ovh_domain_zone_redirection" "be_wayofthinking" {
-  zone      = local.zone_be
-  subdomain = ""
-  type      = "visiblePermanent"
-  target    = "http://wayofthinking.net"
-}
-
-resource "ovh_domain_zone_redirection" "eu_wayofthinking" {
-  zone      = local.zone_eu
-  subdomain = ""
-  type      = "visiblePermanent"
-  target    = "http://wayofthinking.net"
 }

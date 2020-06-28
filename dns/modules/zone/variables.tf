@@ -20,6 +20,17 @@ variable "aliases" {
     subdomain = string
     target    = string
   }))
+  default     = []
+}
+
+variable "redirections" {
+  description = "List of HTTP redirections"
+  type        = list(object({
+    subdomain = string
+    type      = string
+    target    = string
+  }))
+  default     = []
 }
 
 variable "google_site_verification" {
@@ -30,6 +41,7 @@ variable "google_site_verification" {
 variable "mx" {
   description = "MX records"
   type        = list(string)
+  default     = []
 }
 
 variable "spf" {

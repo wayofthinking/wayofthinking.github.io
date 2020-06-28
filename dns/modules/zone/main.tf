@@ -31,6 +31,14 @@ resource "ovh_domain_zone_record" "cname" {
   target    = var.aliases[count.index].target
 }
 
+resource "ovh_domain_zone_redirection" "this" {
+  count     = length(var.redirections)
+  zone      = var.zone
+  subdomain = var.redirections[count.index].subdomain
+  type      = var.redirections[count.index].type
+  target    = var.redirections[count.index].target
+}
+
 resource "ovh_domain_zone_record" "google_site_verification" {
   zone      = var.zone
   fieldtype = "TXT"
